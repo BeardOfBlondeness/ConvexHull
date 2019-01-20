@@ -7,22 +7,27 @@ public class Frame extends JFrame {
 
     private Point[] hull;
     private Point[] polys;
-    private final int multiplier = 50;
-    private final int pointSize = 5;
+    private Point[] hull2;
+    private Point[] p2;
+    private final int multiplier = 150;
+    private final int pointSize = 20;
 
-    Frame(Point[] hull, Point[] polys) {
+    Frame(Point[] hull, Point[] polys, Point[] hull2, Point[] p2) {
         this.hull = hull;
         this.polys = polys;
-        setSize(600, 600);
+        this.hull2 = hull2;
+        this.p2 = p2;
+        setSize(1800, 1800);
         setContentPane(new JLayeredPane());
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setVisible(true);
     }
 
     private void drawLines(Graphics g) {
-        Graphics2D g2d = (Graphics2D) g;
         drawPolys(hull, g);
         drawDots(polys, g);
+        drawPolys(hull2, g);
+        drawDots(p2, g);
     }
 
     private void drawDots(Point[] hull, Graphics g) {

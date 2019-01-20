@@ -13,7 +13,6 @@ public class ConvexHull {
     }
 
     static Point[] convex_hull(Point[] P) {
-
         if (P.length > 1) {
             int n = P.length, k = 0;
             Point[] H = new Point[2 * n];
@@ -50,12 +49,21 @@ public class ConvexHull {
             p[i].x = Integer.parseInt(st.nextToken()); // Read X coordinate
             p[i].y = Integer.parseInt(st.nextToken()); // Read y coordinate
         }
+        st = new StringTokenizer(f.readLine());
+        Point[] p2 = new Point[Integer.parseInt(st.nextToken())];
+        System.out.println(p2.length);
+        for (int i = 0; i < p2.length; i++) { //Loop through each value inputting it to the array of points.
+            p2[i] = new Point();
+            p2[i].x = Integer.parseInt(st.nextToken()); // Read X coordinate
+            p2[i].y = Integer.parseInt(st.nextToken()); // Read y coordinate
+        }
         Point[] hull = convex_hull(p).clone();
+        Point[] hull2 = convex_hull(p2).clone();
         for (Point aHull : hull) {
             if (aHull != null)
                 System.out.print(aHull);
         }
-        Frame fr = new Frame(hull, p);
+        Frame fr = new Frame(hull, p, hull2, p2);
     }
 
 }
