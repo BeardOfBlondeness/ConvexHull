@@ -8,25 +8,22 @@ import java.util.StringTokenizer;
 
 public class ConvexHull {
 
-    public static long cross(Point O, Point A, Point B) {
+    static long cross(Point O, Point A, Point B) {
         return (A.x - O.x) * (long) (B.y - O.y) - (A.y - O.y) * (long) (B.x - O.x);
     }
 
-    public static Point[] convex_hull(Point[] P) {
+    static Point[] convex_hull(Point[] P) {
 
         if (P.length > 1) {
             int n = P.length, k = 0;
             Point[] H = new Point[2 * n];
-
             Arrays.sort(P);
-
             // Build lower hull
             for (int i = 0; i < n; ++i) {
                 while (k >= 2 && cross(H[k - 2], H[k - 1], P[i]) <= 0)
                     k--;
                 H[k++] = P[i];
             }
-
             // Build upper hull
             for (int i = n - 2, t = k + 1; i >= 0; i--) {
                 while (k >= t && cross(H[k - 2], H[k - 1], P[i]) <= 0)
@@ -45,23 +42,20 @@ public class ConvexHull {
     }
 
     public static void main(String[] args) throws IOException {
-
-        BufferedReader f = new BufferedReader(new FileReader("hull.in.txt")); 	// "hull.in"  Input Sample => size x y x y x y x y
+        BufferedReader f = new BufferedReader(new FileReader("hull.txt")); 	//Input Sample => size x y x y x y x y
         StringTokenizer st = new StringTokenizer(f.readLine());
         Point[] p = new Point[Integer.parseInt(st.nextToken())];
-        for (int i = 0; i < p.length; i++) {
+        for (int i = 0; i < p.length; i++) { //Loop through each value inputting it to the array of points.
             p[i] = new Point();
             p[i].x = Integer.parseInt(st.nextToken()); // Read X coordinate
             p[i].y = Integer.parseInt(st.nextToken()); // Read y coordinate
         }
-
         Point[] hull = convex_hull(p).clone();
-
-        for (int i = 0; i < hull.length; i++) {
-            if (hull[i] != null)
-                System.out.print(hull[i]);
+        for (Point aHull : hull) {
+            if (aHull != null)
+                System.out.print(aHull);
         }
-        Frame fr = new Frame(hull);
+        Frame fr = new Frame(hull, p);
     }
 
 }
